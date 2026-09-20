@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useGroups } from '../hooks/useGroups';
 import { useAuth } from '../context/AuthContext';
+import { usePushNotifications } from '../hooks/usePushNotifications';
 import CreateGroupSheet from '../components/CreateGroupSheet';
 import JoinGroupSheet from '../components/JoinGroupSheet';
 
 export default function Groups({ onSelectGroup }: { onSelectGroup: (id: string) => void }) {
   const { groups, loading, createGroup, joinGroupByCode } = useGroups();
   const { profile, signOut } = useAuth();
+  const { supported, enabled, busy, enable, disable } = usePushNotifications();
   const [createOpen, setCreateOpen] = useState(false);
   const [joinOpen, setJoinOpen] = useState(false);
 
@@ -26,6 +28,15 @@ export default function Groups({ onSelectGroup }: { onSelectGroup: (id: string) 
       </div>
 
       {loading && <div className="loading-center">Caricamento…</div>}
+
+      {supported && (
+        <div className="invite-code-box">
+          <div>{enabled ? '🔔 Notifiche attive' : '🔕 Promemoria eventi disattivati'}</div>
+          <button className="copy-btn" onClick={enabled ? disable : enable} disabled={busy}>
+            {busy ? '…' : enabled ? 'Disattiva' : 'Attiva'}
+          </button>
+        </div>
+      )}
 
       {!loading && groups.length === 0 && (
         <div className="empty-hist">

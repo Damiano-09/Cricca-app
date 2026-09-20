@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { EventWithParticipants, ParticipantStatus, Profile } from '../types';
+import { STATUS_LABEL } from '../types';
 import { useAuth } from '../context/AuthContext';
 
 function formatWhen(iso: string) {
@@ -51,38 +52,47 @@ export default function EventDetailSheet({
           const status = event.participants[m.id];
           const isMe = m.id === user?.id;
           return (
-            <div className="member-row" key={m.id}>
+            <div className={`member-row ${isMe ? 'me' : ''}`} key={m.id}>
               <div className="member-left">
                 <div className="m-avatar" style={{ background: m.avatar_color }}>
                   {m.name.slice(0, 2).toUpperCase()}
                 </div>
-                <div className="m-name">
-                  {m.name} {isMe && <span className="you">(tu)</span>}
+                <div>
+                  <div className="m-name">
+                    {m.name} {isMe && <span className="you">(tu)</span>}
+                  </div>
+                  {!isMe && (
+                    <div className="status-caption">
+                      {status ? STATUS_LABEL[status] : 'Non ha ancora risposto'}
+                    </div>
+                  )}
                 </div>
               </div>
-              <div className="status-toggle">
-                <button
-                  className={`status-btn ${status === 'in' ? 'sel-in' : ''}`}
-                  disabled={!isMe}
-                  onClick={() => isMe && onSetStatus(event.id, 'in')}
-                >
-                  🟢
-                </button>
-                <button
-                  className={`status-btn ${status === 'maybe' ? 'sel-maybe' : ''}`}
-                  disabled={!isMe}
-                  onClick={() => isMe && onSetStatus(event.id, 'maybe')}
-                >
-                  🟡
-                </button>
-                <button
-                  className={`status-btn ${status === 'out' ? 'sel-out' : ''}`}
-                  disabled={!isMe}
-                  onClick={() => isMe && onSetStatus(event.id, 'out')}
-                >
-                  ⚪
-                </button>
-              </div>
+
+              {isMe ? (
+                <div className="status-pill-row">
+                  <button
+                    className={`status-pill ${status === 'in' ? 'sel-in' : ''}`}
+                    onClick={() => onSetStatus(event.id, 'in')}
+                  >
+                    🟢 Ci sono
+                  </button>
+                  <button
+                    className={`status-pill ${status === 'maybe' ? 'sel-maybe' : ''}`}
+                    onClick={() => onSetStatus(event.id, 'maybe')}
+                  >
+                    🟡 Forse
+                  </button>
+                  <button
+                    className={`status-pill ${status === 'out' ? 'sel-out' : ''}`}
+                    onClick={() => onSetStatus(event.id, 'out')}
+                  >
+                    🔴 Non vengo
+                  </button>
+                </div>
+              ) : (
+                <span className={`dot ${status ?? 'pending'}`} />
+              )}
             </div>
           );
         })}

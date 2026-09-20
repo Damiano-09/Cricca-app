@@ -106,6 +106,12 @@ export default function GroupDetail({ groupId, onBack }: { groupId: string; onBa
 
       {tab === 'eventi' && (
         <>
+          <div className="legend-row">
+            <span>🟢 Ci sono</span>
+            <span>🟡 Forse</span>
+            <span>🔴 Non vengo</span>
+          </div>
+
           {hasMissing && (
             <div className="banner">
               ⏰ <span><b>Un evento ha ancora posti liberi.</b> Tocca per invitare qualcuno prima che sia tardi.</span>

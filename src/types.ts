@@ -33,7 +33,20 @@ export interface EventWithParticipants extends EventRow {
   participants: Record<string, ParticipantStatus>; // user_id -> status
 }
 
-export const SPORTS = ['🏓 Padel', '⚽ Calcetto', '🎾 Tennis', '🍝 Cena'] as const;
+export const SPORTS = [
+  '🏓 Padel',
+  '⚽ Calcetto',
+  '🎾 Tennis',
+  '🍝 Cena',
+  '🎉 Uscita',
+  '🏠 Casa',
+] as const;
+
+export const STATUS_LABEL: Record<ParticipantStatus, string> = {
+  in: 'Ci sono',
+  maybe: 'Forse',
+  out: 'Non vengo',
+};
 
 export const AVATAR_COLORS = [
   '#1F5D42', '#A63A50', '#E3A93B', '#4B564C', '#6B8F71', '#B87F52', '#7A6BAF', '#C4676F',

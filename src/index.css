@@ -134,7 +134,8 @@ button, input, select{ font-family:'Manrope', sans-serif; }
 .dot{ width:9px; height:9px; border-radius:50%; flex-shrink:0; }
 .dot.in{ background:var(--court); }
 .dot.maybe{ background:var(--sun); }
-.dot.out{ background:var(--grey-dot); }
+.dot.out{ background:var(--berry); }
+.dot.pending{ background:transparent; border:2px solid var(--line); }
 
 .suggest-row{ margin-top:12px; padding-top:12px; border-top:1px dashed var(--line); font-size:12.5px; color:var(--ink-soft); }
 .suggest-row b{ color:var(--berry); font-weight:800; }
@@ -182,7 +183,21 @@ button, input, select{ font-family:'Manrope', sans-serif; }
 .status-btn{ width:30px; height:30px; border-radius:50%; border:2px solid var(--line); background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:13px; }
 .status-btn.sel-in{ background:var(--court); border-color:var(--court); }
 .status-btn.sel-maybe{ background:var(--sun); border-color:var(--sun); }
-.status-btn.sel-out{ background:var(--grey-dot); border-color:var(--grey-dot); }
+.status-btn.sel-out{ background:var(--berry); border-color:var(--berry); }
+
+.legend-row{ display:flex; gap:14px; flex-wrap:wrap; font-size:11.5px; font-weight:700; color:var(--ink-soft); margin:-6px 0 16px; }
+
+.member-row.me{ flex-direction:column; align-items:stretch; gap:10px; }
+.status-pill-row{ display:flex; gap:8px; }
+.status-pill{
+  flex:1; display:flex; align-items:center; justify-content:center; gap:5px;
+  padding:10px 6px; border-radius:14px; border:1.5px solid var(--line);
+  background:var(--card); font-size:12px; font-weight:800; color:var(--ink); cursor:pointer;
+}
+.status-pill.sel-in{ background:var(--court); border-color:var(--court); color:#fff; }
+.status-pill.sel-maybe{ background:var(--sun); border-color:var(--sun); color:var(--court-dark); }
+.status-pill.sel-out{ background:var(--berry); border-color:var(--berry); color:#fff; }
+.status-caption{ font-size:11.5px; font-weight:700; color:var(--ink-soft); margin-top:1px; }
 
 .invite-box{ margin-top:16px; background:var(--berry-soft); border-radius:16px; padding:14px 16px; }
 .invite-box .head{ font-size:13px; font-weight:800; color:var(--berry); margin-bottom:10px; }
